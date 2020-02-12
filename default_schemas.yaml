@@ -1,0 +1,216 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "1.0"
+  title: GA4GH Beacon API Specification
+  description: >-
+    Schemas to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    Chromosome:
+      description: |
+        Reference name (chromosome). Accepting values 1-22, X, Y, MT.
+      type: string
+      enum:
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - '10'
+        - '11'
+        - '12'
+        - '13'
+        - '14'
+        - '15'
+        - '16'
+        - '17'
+        - '18'
+        - '19'
+        - '20'
+        - '21'
+        - '22'
+        - 'X'
+        - 'Y'
+        - 'MT'
+    Variant:
+      description: |
+        Blabla
+      type: object
+      required:
+        - variantDetails
+        - info
+      properties:
+        variantDetails:
+          $ref: '#/components/schemas/VariantDetails'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2]
+            additionalInfoKey2: additionalInfoValue3
+    VariantDetails:
+      description: |
+        Blabla
+      type: object
+      required:
+        - chromosome
+        - referenceBases
+        - alternateBases
+        - variantType
+        - start
+        - assemblyId
+      properties:
+        chromosome:
+          $ref: '#/components/schemas/Chromosome'
+        referenceBases:
+          description: |
+            Reference bases for this variant (starting from `start`).
+          type: string
+          pattern: '^([ACGTN]+)$'
+        alternateBases:
+          description: |
+            The bases that appear instead of the reference bases.
+          type: string
+          pattern: '^([ACGTN]+)$'
+        variantType:
+          description: |
+            The `variantType` is used to denote e.g. structural variants.
+          type: string
+        start:
+          description: |
+            Blabla
+          type: integer
+          format: int64
+          minimum: 0
+        end:
+          description: |
+            Blabla
+          type: integer
+          format: int64
+          minimum: 0
+        assemblyId:
+          description: |
+            Assembly identifier (GRC notation, e.g. `GRCh37`).
+          type: string
+          example: GRCh38
+    VariantAnnotations:
+      description: |
+        Blabla
+      type: object
+      required:
+        - variantMetadata
+        - info
+      properties:
+        variantMetadata:
+          $ref: '#/components/schemas/VariantMetadata'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2]
+            additionalInfoKey2: additionalInfoValue3
+    VariantMetadata:
+      description: |
+        Blabla
+      type: object
+      required:
+        - geneId
+        - HGVSId
+        - transcriptId
+        - alleleId
+        - variantClassification
+        - variantType
+        - disease
+        - proteinChange
+        - clinVarId
+        - pubmedId
+        - timestamp
+        - info
+      properties:
+        geneId:
+          description: |
+            Blabla
+          type: string
+          example: BRCA1
+        HGVSId:
+          description: |
+            Blabla
+          type: string
+          example: 'chr17:g.41228505C>A'
+        transcriptId:
+          description: |
+            Blabla
+          type: string
+          example: 'ENST00000357654.3'
+        alleleId:
+          description: |
+            Blabla
+          type: string
+          example: CA002876
+        variantClassification:
+          description: |
+            Blabla
+          type: string
+          example: somatic
+        variantType:
+          description: |
+            Blabla
+          type: string
+          example: 'Missense Variant'
+        disease:
+          description: |
+            Blabla
+          type: string
+          example: 'Breast Cancer'
+        proteinChange:
+          description: |
+            Blabla
+          type: string
+        clinVarId:
+          description: |
+            Blabla
+          type: integer
+          format: int64
+          example: 37598
+        pubmedId:
+          description: |
+            Blabla
+          type: string
+        timestamp:
+          description: |
+            Use ISO 8601 format.
+          type: string
+          example: '2012-07-19 or 2017-01-17T20:33:40Z'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2]
+            additionalInfoKey2: additionalInfoValue3
