@@ -1,2 +1,2 @@
-# specification-v2-default-schemas
+# Default Scehmas for Beacon v2.0
 Schemas to be used as default by Beacon v2.0
