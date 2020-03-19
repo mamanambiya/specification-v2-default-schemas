@@ -112,8 +112,11 @@ components:
             Categorical value (benign, likely bening, pathogenic, likely pathogenic or unknown).
           type: string
           example: pathogenic
-        disease:
-          $ref: '#/components/schemas/Disease'
+        diseaseId:
+          description: |
+            Disease ICD10 code and ontology ID from a disease ontology such as HPO, OMIM, Orphanet, MONDO.
+          type: string
+          example: 'HP:0004789'
         references:
           description: |
             List of PUBMED ID(s) of studie(s) describing the variant-disease association.
@@ -210,7 +213,7 @@ components:
         Disease been diagnosed to the individual, defined by disease ICD10 code, optionally other disease ontology ID(s), age of onset, stage and the presence of family history.
       type: object
       properties:
-        disease:
+        diseaseId:
           description: |
             Ontology ID from a disease ontology such as HPO, OMIM, Orphanet, MONDO.
           type: string
