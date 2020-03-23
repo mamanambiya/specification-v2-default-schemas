@@ -252,7 +252,7 @@ components:
           format: int64
           minimum: 0
           example: 5
-        disease:
+        diseaseId:
           description: |
             Ontology ID indicating the disease being the focus of the pedigree.
           type: string
@@ -287,7 +287,7 @@ components:
             List of disease(s) been diagnosed to the individual, defined by disease ICD10 code, optionally other disease ontology ID(s), age of onset, stage and the presence of family history.
           type: array
           items:
-            $ref: '#/components/schemas/Age'
+            $ref: '#/components/schemas/Disease'
         pedigrees:
           type: array
           items:
