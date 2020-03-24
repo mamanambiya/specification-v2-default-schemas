@@ -225,7 +225,7 @@ components:
             Value from Ontology for General Medical Science or Disease Stage Qualifier ontology (NCIT:C28108).
           type: string
           example: 'OGMS:0000119'
-        family_history:
+        familyHistory:
           description: |
             Boolean indicating determined or self-reported presence of family history of the disease.
           type: boolean
