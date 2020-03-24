@@ -366,7 +366,7 @@ components:
           $ref: '#/components/schemas/Age'
         sampleOrigin:
           $ref: '#/components/schemas/SampleOrigin'
-        otentionProcedure::
+        obtentionProcedure:
           description: |
             Ontology ID from Intervention or Procedure NCIT ontology.
           type: string
