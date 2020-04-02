@@ -47,23 +47,6 @@ components:
         - 'X'
         - 'Y'
         - 'MT'
-    Variant:
-      description: |
-        Blabla
-      type: object
-      properties:
-        variantDetails:
-          $ref: '#/components/schemas/VariantDetails'
-        info:
-          description: |
-            Additional unspecified metadata about the dataset response or its 
-            content.
-          type: object
-          example:
-            additionalInfoKey1: 
-              - additionalInfoValue1
-              - additionalInfoValue2
-            additionalInfoKey2: additionalInfoValue3
     VariantDetails:
       description: |
         Blabla
@@ -102,6 +85,16 @@ components:
             Assembly identifier (GRC notation, e.g. `GRCh37`).
           type: string
           example: GRCh38
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2
+            additionalInfoKey2: additionalInfoValue3
     ClinicalRelevance:
       description: |
         List of description elements of the clinical relevance described for the variant in relation to specific diseases including a variant classification, the disease identifier, and references.
