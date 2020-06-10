@@ -1,8 +1,8 @@
 openapi: 3.0.2
 servers: []
 info:
-  version: "1.0"
-  title: GA4GH Beacon API Specification
+  version: "2.0"
+  title: GA4GH Beacon Default Schemas
   description: >-
     Schemas to be used as default by the Beacon.
   contact:
