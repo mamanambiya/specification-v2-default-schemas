@@ -1,21 +1,15 @@
 language: java
-dist: trusty
+dist: bionic
 sudo: false
 jdk:
-  - oraclejdk8
+  - oraclejdk11
 env:
   global:
-    - FILE_TO_VALIDATE=default_schemas.yaml
+    - FILE_TO_VALIDATE_VARIANT=default_variant_schema.yaml
     - GH_URL=https://raw.githubusercontent.com
     - VALIDATOR_URL=http://validator.swagger.io/validator/debug?url
-    - URL_TO_VALIDATE=$GH_URL/$TRAVIS_REPO_SLUG/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}/$FILE_TO_VALIDATE
+    - URL_TO_VALIDATE_VARIANT=$GH_URL/$TRAVIS_REPO_SLUG/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}/$FILE_TO_VALIDATE_VARIANT
+before_install:
+  - git clone --branch=v1.1.0 https://github.com/mcupak/oas-validator.git
 script:
-  # validate
-  - echo "Validating $URL_TO_VALIDATE:"
-  - VALIDATION_OUTPUT=`curl -sS "$VALIDATOR_URL=$URL_TO_VALIDATE"`
-
-  # print validation errors
-  - echo $VALIDATION_OUTPUT
-
-  # check if the validation output is an empty array, i.e. no errors
-  - VALIDATION_ERROR_COUNT=`echo "$VALIDATION_OUTPUT" |jq -c '.schemaValidationMessages // [] | map(select(.level != "warning"))' |jq length`
+  - ./oas.validator/validate.sh "$URL_TO_VALIDATE_VARIANT"
