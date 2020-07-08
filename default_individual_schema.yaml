@@ -1,0 +1,139 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "2.0"
+  title: GA4GH Beacon Default Schemas
+  description: >-
+    Schemas to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    Disease:
+      description: |
+        Disease been diagnosed to the individual.
+      type: object
+      properties:
+        diseaseId:
+          description: |
+            Disease identifier. Value from ICD10 disease codes or ontology terms 
+            from disease ontologies such as HPO, OMIM, Orphanet, MONDO, e.g. 
+            lactose intolerance (HP:0004789).
+          type: string
+          example: 'HP:0004789'
+        ageOfOnset:
+          $ref: 'https://raw.githubusercontent.com/ga4gh-beacon/specification-v2-default-schemas/master/common.yaml#/components/schemas/Age'
+        stage:
+          description: |
+            Ontology value from Ontology for General Medical Science or Disease 
+            Stage Qualifier ontology (NCIT:C28108), e.g. acute onset (OGMS:0000119)
+          type: string
+          example: 'OGMS:0000119'
+        familyHistory:
+          description: |
+            Boolean indicating determined or self-reported presence of family 
+            history of the disease.
+          type: boolean
+          example: True
+    Pedigree:
+      description: |
+        Pedigree studie(s) in which the individual is part of.
+      type: object
+      properties:
+        pedigreeId:
+          description: |
+            Pedigree identifier.
+          type: string
+          example: 'Pedigree1001'
+        pedigreeRole:
+          description: |
+            Pedigree role, defined as relationship to proband. Value from HL7 
+            code for family relationship or Relationship to Proband ontology 
+            (ERO:0002112), e.g. ERO:0002041 (identical twin relationship).
+          type: string
+          example: 'ERO:0002041'
+        numberOfIndividualsTested:
+          description: |
+            Number of individuals in pedigree, including proband.
+          type: integer
+          format: int64
+          minimum: 0
+          example: 5
+        diseaseId:
+          description: |
+            Disease identifier for disease focus of the pedigree. Value from 
+            ICD10 disease codes or ontology terms from disease ontologies such 
+            as HPO, OMIM, Orphanet, MONDO.
+            
+            Affected individuals in pedigree will have Diseases.diseaseId 
+            (diagnosed disease) matching Pedigree.diseaseId.
+          type: string
+          example: 'HP:0004789'
+    Individual:
+      description: |
+        Todo
+      type: object
+      properties:
+        individualId:
+          description: |
+            Individual identifier (external accession or internal ID).
+          type: string
+          example: P0001
+        sex:
+          description: |
+            Sex of individual. 
+
+            Value from NCIT General Qualifier (NCIT:C27993) ontology: UNKNOWN 
+            (not assessed or not available) (NCIT:C17998), FEMALE (NCIT:C46113), 
+            MALE, (NCIT:C46112) or OTHER SEX (NCIT:C45908).
+          type: string
+          enum: 
+            - NCIT:C17998
+            - NCIT:C46113
+            - NCIT:C46112
+            - NCIT:C45908
+          example: 'NCIT:C17998'
+        ethnicity:
+          description: |
+            Ethnic background of individual. Value from NCIT Race ontology 
+            (NCIT:C17049), e.g. NCIT:C126531 (Latin American).
+          type: string
+          example: 'NCIT:C126531'
+        geographicOrigin:
+          description: |
+            Individual's country or region of origin (birthplace or residence 
+            place regardless of ethnic origin). Value from GAZ Geographic 
+            Location ontology (GAZ:00000448), e.g. GAZ:00002459 (United States 
+            of America).
+          type: string
+          example: 'GAZ:00002459'
+        diseases:
+          description: |
+            List of disease(s) been diagnosed to the individual, defined by 
+            disease ICD10 code, optionally other disease ontology ID(s), age of 
+            onset, stage and the presence of family history.
+          type: array
+          items:
+            $ref: '#/components/schemas/Disease'
+        pedigrees:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pedigree'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2
+            additionalInfoKey2: additionalInfoValue3

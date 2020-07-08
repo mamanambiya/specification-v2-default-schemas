@@ -1,0 +1,36 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "2.0"
+  title: GA4GH Beacon Default Schemas
+  description: >-
+    Schemas to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    Age:
+      description: |
+        Definition of individual's age at onset, at sample collection time or at 
+        diagnosis of disease.
+      type: object
+      properties:
+        age:
+          description: |
+            Value indicating the age of the individual at the time of collection 
+            in the ISO8601 duration format `P[n]Y[n]M[n]DT[n]H[n]M[n]S`.
+          type: string
+          example: 'P32Y6M1D'
+        ageGroup:
+          description: |
+            Age group value, from NCIT Age Group ontology.
+          type: string
+          example: 'NCIT:C27954 (Adolescent)'

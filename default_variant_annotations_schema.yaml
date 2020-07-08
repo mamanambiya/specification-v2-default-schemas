@@ -1,0 +1,129 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "2.0"
+  title: GA4GH Beacon Default Schemas
+  description: >-
+    Schemas to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    ClinicalRelevance:
+      description: |
+        Descriptor of clinical relevance as described to the variant, including 
+        the variant classification, the disease identifier and references of 
+        studies supporting the association.
+      type: object
+      properties:
+        variantClassification:
+          description: |
+            Value describing the effect of the variant on the disease.
+          type: string
+          enum:
+            - benign
+            - likely benign
+            - pathogenic
+            - likely pathogenic
+            - unknown
+          example: pathogenic
+        diseaseId:
+          description: |
+            Reference to DiseaseId from Disease object from Individual schema, 
+            e.g. MONDO:0003582 (Hereditary breast ovarian cancer syndrome).
+          type: string
+          example: 'MONDO:0003582'
+        references:
+          description: |
+            List of PUBMED ID(s) of studie(s) describing the variant-disease 
+            association.
+          type: array
+          items:
+            type: string
+          example: 
+            - 'PMC3623669'
+            - 'PMID:27153395'
+    VariantAnnotations:
+      description: |
+        Todo
+      type: object
+      properties:
+        genomicHGVSId:
+          description: |
+            HGVSId descriptor at genomic level, referred to genome assembly 
+            defined in Variant Identification.
+          type: string
+          example: 'NC_000011.9:g.134086816T>C'
+        proteinHGVSIds:
+          description: |
+            List of HGVSId descriptor(s) at protein level (for protein-altering 
+            variants).
+          type: array
+          items:
+            type: string
+          example: 
+            - 'NP_009225.1:p.Glu1817Ter'
+        molecularConsequence:
+          description: |
+            Ontology value from Sequence Ontology describing the molecular 
+            consequence of the variant for protein-altering variants.
+          type: string
+          example: 'SO:0001583'
+        geneIds:
+          description: |
+            List of HGNC ID(s) for gene(s) affected by the variant.
+          type: array
+          items:
+            type: string
+          example: 
+            - 'HGNC:8157'
+        transcriptIds:
+          description: |
+            List of ENSMEBL ID(s) for transcript(s) affected by the variant.
+          type: array
+          items:
+            type: string
+          example: 
+            - 'ENST00000277010.9'
+        variantGeneRelationship:
+          description: |
+            Categorical value classifying the variant according to the broadness 
+            of the variant effect in terms of genes: intergenic, 5UTR, 3UTR, 
+            single-gene (exonic, intronic), in overlapping genes (exonic, 
+            intronic), spanning multiple genes, multiple genes
+          type: string
+          example: 'single gene'
+        clinicalRelevance:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicalRelevance'
+        variantAternativeIds:
+          description: |
+            List of cross-referencing ID(s) (CURIE(s)) for the variant in the 
+            original databases or variant-level (aggregated) databases for 
+            previously described variants.
+          type: array
+          items:
+            type: string
+          example: 
+            - 'rs80356868'
+            - 'CA003602'
+            - 'VCV000055583.1'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2
+            additionalInfoKey2: additionalInfoValue

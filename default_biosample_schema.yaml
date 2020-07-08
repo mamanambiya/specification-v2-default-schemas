@@ -1,0 +1,122 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "2.0"
+  title: GA4GH Beacon Default Schemas
+  description: >-
+    Schemas to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    SampleOrigin:
+      description: |
+        Values specifying the origin of the biosample in organ, tissue and cell 
+        type/cell line.
+      type: object
+      properties:
+        organ:
+          description: |
+            Ontology ID from Uber-anatomy ontology (UBERON) or BRENDA tissue / 
+            enzyme source (BTO) ontologies identifying the source organ of the 
+            biosample, e.g. UBERON:0002107 (liver).
+          type: string
+          example: 'UBERON:0002107'
+        tissue:
+          description: |
+            Ontology ID from Uber-anatomy ontology (UBERON) or BRENDA tissue / 
+            enzyme source (BTO) ontologies identifying the source tissue of the 
+            biosample, e.g. UBERON:0001281 (hepatic sinusoid).
+          type: string
+          example: 'UBERON:0001281'
+        cellType:
+          description: |
+            Ontology ID from BRENDA tissue / enzyme source (BTO) or Cell 
+            Ontology (CL) ontologies identifying the source cell type or cell 
+            line origin of the biosample, e.g. CL:0000091 (Kupffer cell).
+          type: string
+          example: 'CL:0000091'
+    CancerFeatures:
+      description: |
+        Values specifying cancer-specific features, including progression and 
+        tumor grade.
+      type: object
+      properties:
+        tumorProgression:
+          description: |
+            Ontology value from Neoplasm by Special Category ontology 
+            (NCIT:C7062). Tumor progression category indicating primary, 
+            metastatic or recurrent progression, e.g. NCIT:C84509 (Primary 
+            Malignant Neoplasm).
+          type: string
+          example: 'NCIT:C84509'
+        tumorGrade:
+          description: |
+            Ontology value from Tumor Grading Characteristic ontology (Mondo 
+            Disease Ontology MONDO:0024488) General tumor grading.
+          type: string
+          example: 'MONDO:0024492'
+    Biosample:
+      description: |
+        Todo
+      type: object
+      properties:
+        biosampleId:
+          description: |
+            Biosample identifier (external accession or internal ID).
+          type: string
+          example: 'S0001'
+        individualId::
+          description: |
+            Reference to Individual ID (Individual.individualId).
+          type: string
+          example: 'P0001'
+        description::
+          description: |
+            Any relevant info about the biosample that does not fit into any 
+            other field in the schema.
+          type: string
+          example: 'Some free text'
+        biosampleStatus::
+          description: |
+            Ontology value from Experimental Factor Ontology (EFO) Material 
+            Sample ontology (OBI:0000747). 
+
+            Classification of the sample in abnormal sample (EFO:0009655) or 
+            reference sample (EFO:0009654).
+          type: string
+          enum:
+            - 'EFO:0009655'
+            - 'EFO:0009654'
+          example: 'EFO:0009655'
+        individualAgeAtCollection:
+          $ref: 'https://raw.githubusercontent.com/ga4gh-beacon/specification-v2-default-schemas/master/common.yaml#/components/schemas/Age'
+        sampleOrigin:
+          $ref: '#/components/schemas/SampleOrigin'
+        obtentionProcedure:
+          description: |
+            Ontology value from NCIT Intervention or Procedure ontology 
+            describing the procedure for sample obtention, e.g. NCIT:C15189 
+            (biopsy).
+          type: string
+          example: 'NCIT:C15189'
+        cancerFeatures:
+          $ref: '#/components/schemas/CancerFeatures'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2
+            additionalInfoKey2: additionalInfoValue3
