@@ -12,4 +12,4 @@ env:
 before_install:
   - git clone --branch=v1.1.0 https://github.com/mcupak/oas-validator.git
 script:
-  - ./oas.validator/validate.sh "$URL_TO_VALIDATE_VARIANT"
+  - ./oas-validator/validate.sh "$URL_TO_VALIDATE_VARIANT"
