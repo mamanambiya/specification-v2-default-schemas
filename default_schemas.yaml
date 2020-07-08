@@ -49,7 +49,7 @@ components:
         - 'MT'
     VariantDetails:
       description: |
-        Blabla
+        Description of the variant.
       type: object
       properties:
         chromosome:
@@ -66,23 +66,26 @@ components:
           pattern: '^([ACGTN]+)$'
         variantType:
           description: |
-            The `variantType` is used to denote e.g. structural variants.
+            Ontology value from Sequence Ontology describing the type of 
+            variant, e.g. SNV (SO:0001483), structural variant(SO:0001537).
           type: string
+          example: SO:0001483
         start:
           description: |
-            Blabla
+            Start position of variant.
           type: integer
           format: int64
           minimum: 0
         end:
           description: |
-            Blabla
+            End position of variant
           type: integer
           format: int64
           minimum: 0
         assemblyId:
           description: |
-            Assembly identifier (GRC notation, e.g. `GRCh37`).
+            Genomic assembly accession as Genome Reference consortium Human 
+            name, e.g. GRCh38.
           type: string
           example: GRCh38
         info:
@@ -97,40 +100,53 @@ components:
             additionalInfoKey2: additionalInfoValue3
     ClinicalRelevance:
       description: |
-        List of description elements of the clinical relevance described for the variant in relation to specific diseases including a variant classification, the disease identifier, and references.
+        Descriptor of clinical relevance as described to the variant, including 
+        the variant classification, the disease identifier and references of 
+        studies supporting the association.
       type: object
       properties:
         variantClassification:
           description: |
-            Categorical value (benign, likely bening, pathogenic, likely pathogenic or unknown).
+            Value describing the effect of the variant on the disease.
           type: string
+          enum:
+            - benign
+            - likely benign
+            - pathogenic
+            - likely pathogenic
+            - unknown
           example: pathogenic
         diseaseId:
           description: |
-            Disease ICD10 code and ontology ID from a disease ontology such as HPO, OMIM, Orphanet, MONDO.
+            Reference to DiseaseId from Disease object from Individual schema, 
+            e.g. MONDO:0003582 (Hereditary breast ovarian cancer syndrome).
           type: string
-          example: 'HP:0004789'
+          example: 'MONDO:0003582'
         references:
           description: |
-            List of PUBMED ID(s) of studie(s) describing the variant-disease association.
+            List of PUBMED ID(s) of studie(s) describing the variant-disease 
+            association.
           type: array
           items:
             type: string
           example: 
             - 'PMC3623669'
+            - 'PMID:27153395'
     VariantAnnotations:
       description: |
-        The Variant Annotation schema is common to both an Evidence and a Data Beacon.
+        Todo
       type: object
       properties:
         genomicHGVSId:
           description: |
-            HGVSId descriptor at genomic level (recommended, referred to genome assembly defined in Variant Representation. schema)
+            HGVSId descriptor at genomic level, referred to genome assembly 
+            defined in Variant Identification.
           type: string
           example: 'NC_000011.9:g.134086816T>C'
         proteinHGVSIds:
           description: |
-            List of HGVSId descriptor(s) at protein level (for protein-altering variants).
+            List of HGVSId descriptor(s) at protein level (for protein-altering 
+            variants).
           type: array
           items:
             type: string
@@ -138,12 +154,13 @@ components:
             - 'NP_009225.1:p.Glu1817Ter'
         molecularConsequence:
           description: |
-            Categorical value from Sequence Variant ontology (SO:0001060) describing the molecular consequence of the variant such as missense variant and frameshift truncation variant for protein-altering variants.
+            Ontology value from Sequence Ontology describing the molecular 
+            consequence of the variant for protein-altering variants.
           type: string
           example: 'SO:0001583'
         geneIds:
           description: |
-            List of HGNC ID(s) for gene(s) a↵ected by the variant.
+            List of HGNC ID(s) for gene(s) affected by the variant.
           type: array
           items:
             type: string
@@ -151,7 +168,7 @@ components:
             - 'HGNC:8157'
         transcriptIds:
           description: |
-            List of ENSMEBL ID(s) for transcript(s) a↵ected by the variant.
+            List of ENSMEBL ID(s) for transcript(s) affected by the variant.
           type: array
           items:
             type: string
@@ -159,16 +176,21 @@ components:
             - 'ENST00000277010.9'
         variantGeneRelationship:
           description: |
-            Categorical value classifying the variant according to the broadness of the variant e↵ect in terms of genes: intergenic, 5UTR, 3UTR, single-gene (exonic, intronic), in overlapping genes (exonic, intronic), spanning multiple genes, multiple genes
+            Categorical value classifying the variant according to the broadness 
+            of the variant effect in terms of genes: intergenic, 5UTR, 3UTR, 
+            single-gene (exonic, intronic), in overlapping genes (exonic, 
+            intronic), spanning multiple genes, multiple genes
           type: string
           example: 'single gene'
         clinicalRelevance:
           type: array
           items:
             $ref: '#/components/schemas/ClinicalRelevance'
-        alternativeIds:
+        variantAternativeIds:
           description: |
-            List of Cross-referencing ID(s) (CURIE) for previously described variants (e.g. clinVarId, ClinGen, COSMIC).
+            List of cross-referencing ID(s) (CURIE(s)) for the variant in the 
+            original databases or variant-level (aggregated) databases for 
+            previously described variants.
           type: array
           items:
             type: string
@@ -188,96 +210,124 @@ components:
             additionalInfoKey2: additionalInfoValue3
     Age:
       description: |
-        Definition of age of individual at baseline as age and/or age group.
+        Definition of individual's age at onset, at sample collection time or at 
+        diagnosis of disease.
       type: object
       properties:
         age:
           description: |
-            Value indicating the age of the individual at the time of collection in the ISO8601 duration format P[n]Y[n]M[n]DT[n]H[n]M[n]S
+            Value indicating the age of the individual at the time of collection 
+            in the ISO8601 duration format `P[n]Y[n]M[n]DT[n]H[n]M[n]S`.
           type: string
           example: 'P32Y6M1D'
         ageGroup:
           description: |
-            Categorical value from NCIT Age Group ontology classifying the individuals in age groups.
+            Age group value, from NCIT Age Group ontology.
           type: string
-          example: 'NCIT:C17600'
+          example: 'NCIT:C27954 (Adolescent)'
     Disease:
       description: |
-        Disease been diagnosed to the individual, defined by disease ICD10 code, optionally other disease ontology ID(s), age of onset, stage and the presence of family history.
+        Disease been diagnosed to the individual.
       type: object
       properties:
         diseaseId:
           description: |
-            Ontology ID from a disease ontology such as HPO, OMIM, Orphanet, MONDO.
+            Disease identifier. Value from ICD10 disease codes or ontology terms 
+            from disease ontologies such as HPO, OMIM, Orphanet, MONDO, e.g. 
+            lactose intolerance (HP:0004789).
           type: string
           example: 'HP:0004789'
         ageOfOnset:
           $ref: '#/components/schemas/Age'
         stage:
           description: |
-            Value from Ontology for General Medical Science or Disease Stage Qualifier ontology (NCIT:C28108).
+            Ontology value from Ontology for General Medical Science or Disease 
+            Stage Qualifier ontology (NCIT:C28108), e.g. acute onset (OGMS:0000119)
           type: string
           example: 'OGMS:0000119'
         familyHistory:
           description: |
-            Boolean indicating determined or self-reported presence of family history of the disease.
+            Boolean indicating determined or self-reported presence of family 
+            history of the disease.
           type: boolean
           example: True
     Pedigree:
       description: |
-        List of pedigree studie(s) the individual has taken part in.
+        Pedigree studie(s) in which the individual is part of.
       type: object
       properties:
         pedigreeId:
           description: |
-            Referencing the pedigree in the database.
+            Pedigree identifier.
           type: string
           example: 'Pedigree1001'
         pedigreeRole:
           description: |
-            Value from HL7 code for family relationship or Relationship to Proband ontology (ERO:0002112).
+            Pedigree role, defined as relationship to proband. Value from HL7 
+            code for family relationship or Relationship to Proband ontology 
+            (ERO:0002112), e.g. ERO:0002041 (identical twin relationship).
           type: string
           example: 'ERO:0002041'
         numberOfIndividualsTested:
           description: |
-            Numeric indicating number of family members, including the proband, studied in the pedigree.
+            Number of individuals in pedigree, including proband.
           type: integer
           format: int64
           minimum: 0
           example: 5
         diseaseId:
           description: |
-            Ontology ID indicating the disease being the focus of the pedigree.
+            Disease identifier for disease focus of the pedigree. Value from 
+            ICD10 disease codes or ontology terms from disease ontologies such 
+            as HPO, OMIM, Orphanet, MONDO.
+            
+            Affected individuals in pedigree will have Diseases.diseaseId 
+            (diagnosed disease) matching Pedigree.diseaseId.
           type: string
           example: 'HP:0004789'
     Individual:
       description: |
-        The Individual schema is part of a Data Beacon 2.0 schema, i.e, it applies to variants whose source is an Individual, as opposed to those variants in Evidence Beacon 2.0 schema where the variant source is a Knowledge Base
+        Todo
       type: object
       properties:
         individualId:
           description: |
-            ID referencing the individual in the database.
+            Individual identifier (external accession or internal ID).
           type: string
           example: P0001
         sex:
           description: |
-            Categorical value from NCIT General Qualifier ontology (NCIT:C27993): UNKNOWN (not assessed or not available) (NCIT:C17998), FEMALE (NCIT:C46113), MALE, (NCIT:C46112) or OTHER SEX (NCIT:C45908)
+            Sex of individual. 
+
+            Value from NCIT General Qualifier (NCIT:C27993) ontology: UNKNOWN 
+            (not assessed or not available) (NCIT:C17998), FEMALE (NCIT:C46113), 
+            MALE, (NCIT:C46112) or OTHER SEX (NCIT:C45908).
           type: string
+          enum: 
+            - NCIT:C17998
+            - NCIT:C46113
+            - NCIT:C46112
+            - NCIT:C45908
           example: 'NCIT:C17998'
         ethnicity:
           description: |
-            Categorical value from NCIT Race ontology (NCIT:C17049)
+            Ethnic background of individual. Value from NCIT Race ontology 
+            (NCIT:C17049), e.g. NCIT:C126531 (Latin American).
           type: string
           example: 'NCIT:C126531'
         geographicOrigin:
           description: |
-            Categorical value from GAZ Geographic Location ontology (GAZ:00000448) describing the individual�s country or region of origin (birthplace or residence place regardless of ethnic origin).
+            Individual's country or region of origin (birthplace or residence 
+            place regardless of ethnic origin). Value from GAZ Geographic 
+            Location ontology (GAZ:00000448), e.g. GAZ:00002459 (United States 
+            of America).
           type: string
           example: 'GAZ:00002459'
         diseases:
           description: |
-            List of disease(s) been diagnosed to the individual, defined by disease ICD10 code, optionally other disease ontology ID(s), age of onset, stage and the presence of family history.
+            List of disease(s) been diagnosed to the individual, defined by 
+            disease ICD10 code, optionally other disease ontology ID(s), age of 
+            onset, stage and the presence of family history.
           type: array
           items:
             $ref: '#/components/schemas/Disease'
@@ -297,63 +347,83 @@ components:
             additionalInfoKey2: additionalInfoValue3
     SampleOrigin:
       description: |
-        Values of ontology IDs specifying the origin of the biosample in organ, tissue and cell type/cell line. For samples with origin in an established cell line, the cell line identifier should be specified in the cell type field.
+        Values specifying the origin of the biosample in organ, tissue and cell 
+        type/cell line.
       type: object
       properties:
         organ:
           description: |
-            Ontology ID from Uber-anatomy ontology (UBERON) or BRENDA tissue / enzyme source (BTO) ontologies identifying the source organ of the biosample.
+            Ontology ID from Uber-anatomy ontology (UBERON) or BRENDA tissue / 
+            enzyme source (BTO) ontologies identifying the source organ of the 
+            biosample, e.g. UBERON:0002107 (liver).
           type: string
           example: 'UBERON:0002107'
         tissue:
           description: |
-            Ontology ID from Uber-anatomy ontology (UBERON) or BRENDA tissue / enzyme source (BTO) ontologies identifying the source tissue of the biosample.
+            Ontology ID from Uber-anatomy ontology (UBERON) or BRENDA tissue / 
+            enzyme source (BTO) ontologies identifying the source tissue of the 
+            biosample, e.g. UBERON:0001281 (hepatic sinusoid).
           type: string
           example: 'UBERON:0001281'
         cellType:
           description: |
-            Ontology ID from BRENDA tissue / enzyme source (BTO) or Cell Ontology (CL) ontologies identifying the source cell type or cell line origin of the biosample.
+            Ontology ID from BRENDA tissue / enzyme source (BTO) or Cell 
+            Ontology (CL) ontologies identifying the source cell type or cell 
+            line origin of the biosample, e.g. CL:0000091 (Kupffer cell).
           type: string
           example: 'CL:0000091'
     CancerFeatures:
       description: |
-        Values specifying cancer-specific features, including progression and tumor grade.
+        Values specifying cancer-specific features, including progression and 
+        tumor grade.
       type: object
       properties:
         tumorProgression:
           description: |
-            Value from tumor progression indicating primary, metastatic or recurrent progression categories Neoplasm by Special Category ontology (NCIT:C7062).
+            Ontology value from Neoplasm by Special Category ontology 
+            (NCIT:C7062). Tumor progression category indicating primary, 
+            metastatic or recurrent progression, e.g. NCIT:C84509 (Primary 
+            Malignant Neoplasm).
           type: string
           example: 'NCIT:C84509'
         tumorGrade:
           description: |
-            Value from general tumor grading Tumor Grading Characteristic ontology (Mondo Disease Ontology MONDO:0024488). A modifier that can be applied to a tumor class describing abnormal tumor histology or morphology. It is an indicator of how quickly a tumor is likely to grow and spread. Grading systems di↵er depending on the type of cancer.
+            Ontology value from Tumor Grading Characteristic ontology (Mondo 
+            Disease Ontology MONDO:0024488) General tumor grading.
           type: string
           example: 'MONDO:0024492'
     Biosample:
       description: |
-        The Biosample schema is part of a Data Beacon 2.0 schema, i.e, it applies to variants whose source is an Individual, as opposed to those variants in Evidence Beacon 2.0 schema where the variant source is a Knowledge Base
+        Todo
       type: object
       properties:
         biosampleId:
           description: |
-            ID referencing the biosample in the database.
+            Biosample identifier (external accession or internal ID).
           type: string
           example: 'S0001'
         individualId::
           description: |
-            ID referencing the individual of provenance in the database.
+            Reference to Individual ID (Individual.individualId).
           type: string
           example: 'P0001'
         description::
           description: |
-            Free text describing any relevant info about the biosample that does not fit in any field in the schema.
+            Any relevant info about the biosample that does not fit into any 
+            other field in the schema.
           type: string
           example: 'Some free text'
         biosampleStatus::
           description: |
-            Categorical value from Experimental Factor Ontology (EFO) Material Sample ontology (OBI:0000747) classifying the sample in abnormal sample (EFO:0009655) or reference sample (EFO:0009654)
+            Ontology value from Experimental Factor Ontology (EFO) Material 
+            Sample ontology (OBI:0000747). 
+
+            Classification of the sample in abnormal sample (EFO:0009655) or 
+            reference sample (EFO:0009654).
           type: string
+          enum:
+            - 'EFO:0009655'
+            - 'EFO:0009654'
           example: 'EFO:0009655'
         individualAgeAtCollection:
           $ref: '#/components/schemas/Age'
@@ -361,7 +431,9 @@ components:
           $ref: '#/components/schemas/SampleOrigin'
         obtentionProcedure:
           description: |
-            Ontology ID from Intervention or Procedure NCIT ontology.
+            Ontology value from NCIT Intervention or Procedure ontology 
+            describing the procedure for sample obtention, e.g. NCIT:C15189 
+            (biopsy).
           type: string
           example: 'NCIT:C15189'
         cancerFeatures:
