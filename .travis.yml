@@ -12,7 +12,7 @@ env:
     - FILE_TO_VALIDATE_COMMON=default_common_schema.yaml
     - GH_URL=https://raw.githubusercontent.com
     - VALIDATOR_URL=http://validator.swagger.io/validator/debug?url
-    - URL_TO_VALIDATE_VARIANT=$GH_URL/$TRAVIS_REPO_SLUG/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+    - URL_TO_VALIDATE=$GH_URL/$TRAVIS_REPO_SLUG/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
 before_install:
   - git clone --branch=v1.1.0 https://github.com/mcupak/oas-validator.git
 script:
