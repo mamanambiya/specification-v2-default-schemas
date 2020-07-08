@@ -9,7 +9,7 @@ env:
     - FILE_TO_VALIDATE_VARIANT_ANNOT=default_variant_annotations_schema.yaml
     - FILE_TO_VALIDATE_BIOSAMPLE=default_biosample_schema.yaml
     - FILE_TO_VALIDATE_INDIVIDUAL=default_individual_schema.yaml
-    - FILE_TO_VALIDATE_COMMON=default_common_schema.yaml
+    - FILE_TO_VALIDATE_COMMON=common.yaml
     - GH_URL=https://raw.githubusercontent.com
     - VALIDATOR_URL=http://validator.swagger.io/validator/debug?url
     - URL_TO_VALIDATE=$GH_URL/$TRAVIS_REPO_SLUG/${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
