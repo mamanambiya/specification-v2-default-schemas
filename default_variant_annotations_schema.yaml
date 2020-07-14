@@ -1,10 +1,10 @@
 openapi: 3.0.2
 servers: []
 info:
-  version: "2.0"
-  title: GA4GH Beacon Default Schemas
+  version: "0.1"
+  title: GA4GH Beacon Variant Annotation Default Schema
   description: >-
-    Schemas to be used as default by the Beacon.
+    Schema for variant annotations to be used as default by the Beacon.
   contact:
     email: beacon@ga4gh.org
   license:
