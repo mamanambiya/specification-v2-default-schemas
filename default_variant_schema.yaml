@@ -72,16 +72,16 @@ components:
           example: SO:0001483
         start:
           description: |
-            Start position of variant.
+            Start position of the variant in 0-based (interbase) coordinates.
           type: integer
           format: int64
           minimum: 0
         end:
           description: |
-            End position of variant
+            End position of the variant in 0-based (interbase) coordinates.
           type: integer
           format: int64
-          minimum: 0
+          minimum: 1
         assemblyId:
           description: |
             Genomic assembly accession as Genome Reference consortium Human 
