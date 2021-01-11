@@ -17,40 +17,6 @@ externalDocs:
 paths: {}
 components:
   schemas:
-    ClinicalRelevance:
-      description: |
-        Descriptor of clinical relevance as described to the variant, including 
-        the variant classification, the disease identifier and references of 
-        studies supporting the association.
-      type: object
-      properties:
-        variantClassification:
-          description: |
-            Value describing the effect of the variant on the disease.
-          type: string
-          enum:
-            - benign
-            - likely benign
-            - pathogenic
-            - likely pathogenic
-            - unknown
-          example: pathogenic
-        diseaseId:
-          description: |
-            Reference to DiseaseId from Disease object from Individual schema, 
-            e.g. MONDO:0003582 (Hereditary breast ovarian cancer syndrome).
-          type: string
-          example: 'MONDO:0003582'
-        references:
-          description: |
-            List of PUBMED ID(s) of studie(s) describing the variant-disease 
-            association.
-          type: array
-          items:
-            type: string
-          example: 
-            - 'PMC3623669'
-            - 'PMID:27153395'
     genomicFeatures:
       description: |
         List of genomic feature(s) affected by the variant
