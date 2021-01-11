@@ -17,33 +17,6 @@ externalDocs:
 paths: {}
 components:
   schemas:
-    SampleOrigin:
-      description: |
-        Values specifying the origin of the biosample in organ, tissue and cell 
-        type/cell line.
-      type: object
-      properties:
-        organ:
-          description: |
-            Ontology ID from Uber-anatomy ontology (UBERON) or BRENDA tissue / 
-            enzyme source (BTO) ontologies identifying the source organ of the 
-            biosample, e.g. UBERON:0002107 (liver).
-          type: string
-          example: 'UBERON:0002107'
-        tissue:
-          description: |
-            Ontology ID from Uber-anatomy ontology (UBERON) or BRENDA tissue / 
-            enzyme source (BTO) ontologies identifying the source tissue of the 
-            biosample, e.g. UBERON:0001281 (hepatic sinusoid).
-          type: string
-          example: 'UBERON:0001281'
-        cellType:
-          description: |
-            Ontology ID from BRENDA tissue / enzyme source (BTO) or Cell 
-            Ontology (CL) ontologies identifying the source cell type or cell 
-            line origin of the biosample, e.g. CL:0000091 (Kupffer cell).
-          type: string
-          example: 'CL:0000091'
     CancerFeatures:
       description: |
         Values specifying cancer-specific features, including progression and 
@@ -74,12 +47,12 @@ components:
             Biosample identifier (external accession or internal ID).
           type: string
           example: 'S0001'
-        individualId::
+        subjectId:
           description: |
-            Reference to Individual ID (Individual.individualId).
+            Reference to subject ID (Subject.subjectId).
           type: string
           example: 'P0001'
-        description::
+        description:
           description: |
             Any relevant info about the biosample that does not fit into any 
             other field in the schema.
@@ -97,10 +70,29 @@ components:
             - 'EFO:0009655'
             - 'EFO:0009654'
           example: 'EFO:0009655'
-        individualAgeAtCollection:
+        subjectAgeAtCollection:
           $ref: 'https://raw.githubusercontent.com/ga4gh-beacon/specification-v2-default-schemas/master/common.yaml#/components/schemas/Age'
-        sampleOrigin:
-          $ref: '#/components/schemas/SampleOrigin'
+        sampleOriginType:
+          description: |
+            Ontology value for category of sample origin #todo add Ontology name
+            e.g ”organism primary tissue”, ”organism xenograft”, 
+            ”organism-derived fluid”, ”cell culture”, ”environmental sample”
+          type: string
+          enum:
+            - 'organism primary tissue'
+            - 'organism xenograft'
+            - 'organism-derived fluid'
+            - 'cell culture'
+            - 'environmental sample'
+          example: 'organism primary tissue'
+        sampleOriginDetail:
+          description: |
+            Ontology value from Uber-anatomy ontology (UBERON) or BRENDA tissue / enzyme source (BTO).
+            Specific instance of sample origin matching the category set in sampleOriginType e.g ”HEK293T”, ”nasopharynx”
+          type: string
+          example:
+            - 'HEK293T'
+            - 'nasopharynx'
         obtentionProcedure:
           description: |
             Ontology value from NCIT Intervention or Procedure ontology 

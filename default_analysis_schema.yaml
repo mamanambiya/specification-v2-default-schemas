@@ -1,0 +1,65 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "0.1"
+  title: GA4GH Beacon Analysis Default Schema
+  description: >-
+    Schema for analyses to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    Analysis:
+      description: |
+        Todo
+      type: object
+      properties:
+        runId: ##todo check this. and analysisID?
+          description: |
+            Run identifier (external accession or internal ID).
+          type: string
+          example: 'SRR10903401'
+        variantId: #todo check this
+          description: |
+            Date at which run was performed, in (ISO8601 duration format)
+          type: string
+          example: 'P3Y6M4DT12H30M5S' ##todo to be confirmed
+        pipelineName:
+          description: |
+            Analysis pipeline and version if a standardized pipeline was used #todo why categorical?
+          type: string
+          example: '' #todo provide example
+        pipelineRef:
+          description: |
+            Link to Analysis pipeline resource
+          type: string
+          example: '' #todo provide example
+        aligner:
+          description: |
+            Ontology value for Mapping/Alignment software #todo define Ontology name?
+          type: string
+          example: 'bwa'
+        variantCaller:
+          description: |
+            Ontology value Variant calling software/ pipeline e.g ”GATK vxxx” #todo add Ontology name?
+          type: string
+          example:
+            - 'GATK vxxx'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2
+            additionalInfoKey2: additionalInfoValue3

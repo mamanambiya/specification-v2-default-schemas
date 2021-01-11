@@ -1,0 +1,137 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "0.1"
+  title: GA4GH Beacon Variant in Sample Default Schema
+  description: >-
+    Schema for variant in sample to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    ClinicalRelevance: 
+      description: |
+        Descriptor of clinical relevance as described to the variant, including 
+        the variant classification, the disease identifier and references of 
+        studies supporting the association.
+      type: object
+      properties:
+        clinicalEffect: ##todo copy from avriant annotation schema?
+          description: |
+            Value describing the effect of the variant on the disease.
+          type: string
+          enum:
+            - benign
+            - likely benign
+            - pathogenic
+            - likely pathogenic
+            - unknown
+          example: pathogenic
+        diseaseId:
+          description: |
+            Reference to DiseaseId from Disease object from Individual schema, 
+            e.g. MONDO:0003582 (Hereditary breast ovarian cancer syndrome).
+          type: string
+          example: 'MONDO:0003582'
+        evidenceType:
+          description: |
+            Ontology value for type of evidence supporting variant-disease 
+            association from the Evidence & Conclusion Ontology (ECO)
+          type: string
+          example: 'experimental evidence'
+    phenotypicEffect:
+      description: |
+        List of annotated effect on disease.
+      type: object
+      properties:
+        phenotypeId:
+          description: |
+            Descriptor of phenotype found associated in this study
+          type: string
+          example: "" ##todo provide example
+        phenotypeEffect:
+          description: |
+            Ontology value for phenotypic effect classification determined in this study
+          type: string
+          example: '' ##todo example?
+        evidenceType:
+          description: |
+            Ontology value for type of evidence supporting variant-disease 
+            association from the Evidence & Conclusion Ontology (ECO)
+          type: string
+          example: 'experimental evidence'
+    VariantInSample:
+      description: |
+        Todo
+      type: object
+      properties:
+        variantId:
+          description: |
+            ID referencing the variant in beacon (internal ID) ##todo check?
+          type: string
+        analysisId:
+          description: |
+            Reference to run (Run.runId)
+          type: string
+          example: 'SRR10903401'
+        subjectId:
+          description: |
+            Reference to subject ID (Subject.subjectId).
+          type: string
+          example: 'P0001'
+        variantFrequency:
+          description: |
+            Variant frequency in sample, as in AF field in VCF for case-level datasets.
+            Frequency in dataset for aggregated variant-level datasets.
+          type: number
+          minimum: 0
+          example: 1
+        zigosity:
+          description: |
+            Ontology value for zigosity in which variant is present in the sample 
+            from the Zigosity Ontology (GENO:0000133) , e.g ”heterozygous” (GENO:0000135)
+          type: string
+          example: 'heterozygous'
+        alleleOrigin:
+          description: |
+            Ontology value for allele origin of variant in sample from the Variant Origin (SO:0001762). 
+            Categories are ”somatic variant”, ”germline variant”, ”maternal variant”, 
+            ”paternal variant”, ”de novo variant”, ”pedigree specific variant”, 
+            ”population specific variant”. 
+            Corresponds to Variant Inheritance in FHIR.
+          type: string
+          enum:
+            - 'somatic variant'
+            - 'germline variant'
+            - 'maternal variant'
+            - 'paternal variant'
+            - 'de novo variant'
+            - 'pedigree specific variant'
+            - 'population specific variant'
+          example: 'somatic variant'
+        clinicalRelevance:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicalRelevance'
+        phenotypicEffect:
+          type: array
+          items:
+            $ref: '#/components/schemas/phenotypicEffect'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2
+            additionalInfoKey2: additionalInfoValue

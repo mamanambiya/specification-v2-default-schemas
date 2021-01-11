@@ -1,0 +1,92 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "0.1"
+  title: GA4GH Beacon Variant Identification Default Schema
+  description: >-
+    Schema for variant identifications to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    VariantIdentifications:
+      description: |
+        Todo
+      type: object
+      properties:
+        variantId:
+          description: |
+            ID referencing the variant in beacon (internal ID)
+          type: string
+        assemblyId:
+          description: |
+            Genomic assembly accession and version as RefSqeq assembly accessions 
+            (e.g ”GCG 000001405.39”). Alternatively, an assembly name or synonym 
+            such as UCSC Genome Browser assembly (e.g ”hg38”) or 
+            Genome Reference consortium Human (e.g GRCh38.p13”) names can be 
+            given as long as they are accompanied with their versions.
+          type: string
+          example: 
+            - 'GCG 000001405.39'
+            - 'hg38'
+            - 'GRCh38.p13'
+        refseqId:
+          description: |
+            Reference sequence Refseq ID and version for genomic contiguous in which 
+            variant query coordinates are given, e.g ”NC 000009” for human chromosome 9. 
+            Alterna- tively, names, synonymous or aliases are accepted eg. ”Chr9” when 
+            assemblyId is given. For organism with single scaffold the full length 
+            reference sequence Refseq IDs can be given here as an alternative to 
+            the assembly Id and version in assemblyId, e.g ”NC 045512.2” for 
+            SARS-CoV2 full-length genome reference sequence.
+          type: string
+          example: 
+            - 'NC 000009'
+            - 'Chr9'
+            - 'NC 045512.2'
+        start:
+          description: |
+            Start position of variant.
+          type: integer
+          format: int64
+          minimum: 0
+        end:
+          description: |
+            End position of variant
+          type: integer
+          format: int64
+          minimum: 0
+        ref:
+          description: |
+            Reference bases for this variant (starting from `start`).
+          type: string
+          pattern: '^([ACGTN]+)$'
+        alt:
+          description: |
+            The bases that appear instead of the reference bases.
+          type: string
+          pattern: '^([ACGTN]+)$'
+        variantType:
+          description: |
+            Ontology value from Sequence Ontology describing the type of 
+            variant, e.g. SNV (SO:0001483), structural variant(SO:0001537).
+          type: string
+          example: SO:0001483
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2
+            additionalInfoKey2: additionalInfoValue

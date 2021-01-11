@@ -1,0 +1,141 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "0.1"
+  title: GA4GH Beacon Variant Interpretation Default Schema
+  description: >-
+    Schema for variant interpretations to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    ClinicalRelevance: 
+      description: |
+        Descriptor of clinical relevance as described to the variant, including 
+        the variant classification, the disease identifier and references of 
+        studies supporting the association.
+      type: object
+      properties:
+        diseaseId:
+          description: |
+            Reference to DiseaseId from Disease object from Individual schema, 
+            e.g. MONDO:0003582 (Hereditary breast ovarian cancer syndrome).
+          type: string
+          example: 'MONDO:0003582'
+        clinicalEffect: ##todo copy from avriant annotation schema?
+          description: |
+            Value describing the effect of the variant on the disease.
+          type: string
+          enum:
+            - benign
+            - likely benign
+            - pathogenic
+            - likely pathogenic
+            - unknown
+          example: pathogenic
+        alleleOrigin:
+          description: |
+            Ontology value for allele origin of variant in sample from the Variant Origin (SO:0001762). 
+            Categories are ”somatic variant”, ”germline variant”, ”maternal variant”, 
+            ”paternal variant”, ”de novo variant”, ”pedigree specific variant”, 
+            ”population specific variant”. Corresponds to Variant Inheritance in FHIR.
+          type: string
+          enum:
+            - 'somatic variant'
+            - 'germline variant'
+            - 'maternal variant'
+            - 'paternal variant'
+            - 'de novo variant'
+            - 'pedigree specific variant'
+            - 'population specific variant'
+          example: 'somatic variant'
+        references:
+          description: |
+            List of PUBMED ID(s) of studie(s) describing the variant-disease 
+            association.
+          type: array
+          items:
+            type: string
+          example: 
+            - 'PMC3623669'
+            - 'PMID:27153395'
+    phenotypicEffect:
+      description: |
+        List of annotated effect on disease.
+      type: object
+      properties:
+        phenotypeId:
+          description: |
+            Descriptor of phenotype found associated in this study
+          type: string
+          example: "" ##todo provide example
+        phenotypeEffect:
+          description: |
+            Ontology value for phenotypic effect classification determined in this study
+          type: string
+          example: '' ##todo example?
+        alleleOrigin:
+          description: |
+            Ontology value for allele origin of variant in sample from the Variant Origin (SO:0001762). 
+            Categories are ”somatic variant”, ”germline variant”, ”maternal variant”, 
+            ”paternal variant”, ”de novo variant”, ”pedigree specific variant”, 
+            ”population specific variant”. Corresponds to Variant Inheritance in FHIR.
+          type: string
+          enum:
+            - 'somatic variant'
+            - 'germline variant'
+            - 'maternal variant'
+            - 'paternal variant'
+            - 'de novo variant'
+            - 'pedigree specific variant'
+            - 'population specific variant'
+          example: 'somatic variant'
+        references:
+          description: |
+            List of PUBMED ID(s) of studie(s) describing the variant-disease 
+            association.
+          type: array
+          items:
+            type: string
+          example: 
+            - 'PMC3623669'
+            - 'PMID:27153395'
+    VariantInterpretation:
+      description: |
+        Todo
+      type: object
+      properties:
+        variantId:
+          description: |
+            ID referencing the variant in beacon (internal ID) ##todo check?
+          type: string
+        datasetId:
+          description: |
+            Reference to dataset ID (DatasetDetails.datasetId)
+          type: string
+        clinicalRelevance:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicalRelevance'
+        phenotypicEffect:
+          type: array
+          items:
+            $ref: '#/components/schemas/phenotypicEffect'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2
+            additionalInfoKey2: additionalInfoValue

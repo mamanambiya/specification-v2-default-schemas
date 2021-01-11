@@ -1,0 +1,86 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "0.1"
+  title: GA4GH Beacon Run Default Schema
+  description: >-
+    Schema for runs to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    Run:
+      description: |
+        Todo
+      type: object
+      properties:
+        runId:
+          description: |
+            Run identifier (external accession or internal ID).
+          type: string
+          example: 'SRR10903401'
+        biosampleId:
+          description: |
+            Reference to sample ID (Biosample.biosampleId).
+          type: string
+          example: 'S0001'
+        variantId: #todo check this
+          description: |
+            Date at which run was performed, in (ISO8601 duration format)
+          type: string
+          example: 'P3Y6M4DT12H30M5S' ##todo to be confirmed
+        librarySource:
+          description: |
+            Ontology value for sequencing library source e.g ”Metagenomic”, ”Viral RNA” #todo add Ontology name?
+          type: string
+          example:
+            - 'Metagenomic'
+            - 'Viral RNA'
+        librarySelection:
+          description: |
+            Ontology value for selection method for sequencing library 
+            preparation e.g ”RANDOM”, ”RT-PCR” #todo add Ontology name?
+          type: string
+          example:
+            - 'RANDOM'
+            - 'RT-PCR'
+        libraryLayout:
+          description: |
+            Ontology value for sequencing library layout e.g ”PAIRED”, ”SINGLE” #todo add Ontology name?
+          type: string
+          enum:
+            - 'PAIRED'
+            - 'SINGLE'
+          example: 'SINGLE'
+        platform:
+          description: |
+            Ontology value for sequencing platform group e.g ”Illumina”, ”Nanopore” #todo add Ontology name?
+          type: string
+          example:
+            - 'Illumina'
+            - 'Nanopore'
+        platformModel:
+          description: |
+            Ontology value for sequencing platform model e.g ”Illumina MiSeq”, ”GridION” #todo add Ontology name?
+          type: string
+          example:
+            - 'Illumina MiSeq'
+            - 'GridION'
+        info:
+          description: |
+            Additional unspecified metadata about the dataset response or its 
+            content.
+          type: object
+          example:
+            additionalInfoKey1: 
+              - additionalInfoValue1
+              - additionalInfoValue2
+            additionalInfoKey2: additionalInfoValue3

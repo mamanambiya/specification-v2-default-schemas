@@ -1,0 +1,42 @@
+openapi: 3.0.2
+servers: []
+info:
+  version: "0.1"
+  title: GA4GH Beacon Dataset Default Schema
+  description: >-
+    Schema for datasets to be used as default by the Beacon.
+  contact:
+    email: beacon@ga4gh.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: |
+    'Beacon Project'
+  url: 'http://beacon-project.io/'
+paths: {}
+components:
+  schemas:
+    DatasetDetails:
+      description: |
+        Description of the dataset.
+      type: object
+      properties:
+        datasetId:
+          description: |
+            Dataset reference ID (internal ID)
+          type: string
+        datasetName:
+          description: |
+            Dataset name. Reference to source.
+          type: string
+          example:  
+            - 'DECIPHER'
+            - 'DisGenNET'
+        datasetype:
+          description: |
+            Dataset type: variant-level (aggregated) or case-level
+          type: string
+          example:  
+            - 'variant-level (aggregated)'
+            - 'case-level'
