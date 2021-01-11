@@ -118,16 +118,6 @@ components:
           format: int64
           minimum: 0
           example: 5
-        # diseaseId:
-        #   description: |
-        #     Disease identifier for disease focus of the pedigree. Value from 
-        #     ICD10 disease codes or ontology terms from disease ontologies such 
-        #     as HPO, OMIM, Orphanet, MONDO.
-            
-        #     Affected individuals in pedigree will have Diseases.diseaseId 
-        #     (diagnosed disease) matching Pedigree.diseaseId.
-        #   type: string
-        #   example: 'HP:0004789'
     phenotypicFeatures:
       description: |
         List of phenotypic feature(s) observed in the subject, 
