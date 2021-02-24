@@ -47,7 +47,7 @@ components:
             association from the Evidence & Conclusion Ontology (ECO)
           type: string
           example: 'experimental evidence'
-    phenotypicEffect:
+    PhenotypicEffect:
       description: |
         List of annotated effect on disease.
       type: object
