@@ -20,32 +20,22 @@ externalDocs:
 paths: {}
 components:
   schemas:
-    level_severity:
+    levelSeverity:
       description: |
         Level/severity ontology when and as applicable to phenotype observed. Value from TBD, e.g ”mild”
-      type: object
-      properties:
-        level_severity:
-          description: |
-            Level/severity ontology when and as applicable to phenotype observed. Value from TBD, e.g ”mild”
-          type: string
-          enum: 
-            - TBD #todo # Source TBD
-          example: 'severe'
+      type: string
+      enum: 
+        - #TBD # Source TBD
+      example: 'severe'
     dateOfOnset:
       description: |
         Date of onset/observation of phenotype, in (ISO8601 duration format)
-      type: object
-      properties:
-        dateOfOnset:
-          description: |
-            Date of onset/observation of phenotype, in (ISO8601 duration format)
-          type: string
-          example: 'P3Y6M4DT12H30M5S' ##todo to be confirmed
+      type: string
+      example: 'P3Y6M4DT12H30M5S' #TBD to be confirmed
     Disease:
       description: |
         Lisf of disease(s) been diagnosed to the individual, defined by diseaseID, age of onset, 
-        stage, level/severity, outcome and the presence of family history
+        stage, level of severity, outcome and the presence of family history
       type: object
       properties:
         diseaseId:
@@ -65,14 +55,14 @@ components:
             Stage Qualifier ontology (NCIT:C28108), e.g. acute onset (OGMS:0000119)
           type: string
           example: 'OGMS:0000119'
-        level_severity: #todo '/'' or 'or'
-          $ref: '#/components/schemas/level_severity'
+        levelSeverity:
+          $ref: '#/components/schemas/levelSeverity'
         outcome:
           description: |
              Outcome of passed acute diseases. Value from TBD, eg. ”fatal”
           type: string
           enum:
-            - TBD #todo
+            - TBD #TBD
           example: 'fatal'
         familyHistory:
           description: |
@@ -89,10 +79,51 @@ components:
           description: |
             Treatment ID. Value from TBD
           type: string
-          example: #todo
+          example: #TBD
         dateAtOnset:
           $ref: '#/components/schemas/dateOfOnset'
         ageAtOnset:
+          $ref: 'https://raw.githubusercontent.com/ga4gh-beacon/specification-v2-default-schemas/master/common.yaml#/components/schemas/Age'
+        dose:
+          description: |
+            Treatment dose
+          type: integer
+          example: #TBD
+        units:
+          description: |
+            Treatment dose units
+          type: string
+          example: #TBD
+        schedule:
+          description: |
+            Treatment dose units
+          type: string
+          enum:
+            - #TBD
+          example: 'weekly'
+        duration:
+          description: |
+            Treatment duration in ISO8601 duration format
+          type: string
+          example: 'P32Y6M1D'
+    Interventions:
+      description: |
+        List of intervention(s) been practiced on subject, 
+        defined by treatment ID, date and age of onset, dose, 
+        schedule and duration.
+      type: object
+      properties:
+        interventionId:
+          description: |
+            Intervention ID. Value from TBD
+          type: string
+          example: #TDB
+        date:
+          description: |
+            Date of intervention in ISO8601 duration format
+          type: string
+          example: 'P3Y6M4DT12H30M5S' #TBD to be confirmed
+        ageAtIntervention:
           $ref: 'https://raw.githubusercontent.com/ga4gh-beacon/specification-v2-default-schemas/master/common.yaml#/components/schemas/Age'
     Pedigree:
       description: |
@@ -116,8 +147,8 @@ components:
             Number of individuals in pedigree, including proband.
           type: integer
           format: int64
-          minimum: 0
-          example: 5
+            minimum: 0
+            example: 5
     phenotypicFeatures:
       description: |
         List of phenotypic feature(s) observed in the individual, 
@@ -133,14 +164,14 @@ components:
           description: |
             Date of onset/observation of phenotype, in (ISO8601 duration format)
           type: string
-          example: 'P3Y6M4DT12H30M5S' ##todo to be confirmed
+          example: 'P3Y6M4DT12H30M5S' #TBD to be confirmed
         ageOfOnset:
           $ref: 'https://raw.githubusercontent.com/ga4gh-beacon/specification-v2-default-schemas/master/common.yaml#/components/schemas/Age'
-        level_severity: #todo '/'' or 'or'
-          $ref: '#/components/schemas/level_severity'
+        levelSeverity:
+          $ref: '#/components/schemas/levelSeverity'
     Individual:
       description: |
-        Todo
+        #TBD
       type: object
       properties:
         individualId:
