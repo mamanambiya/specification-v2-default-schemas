@@ -48,59 +48,6 @@ components:
           description: |
             ID referencing the variant in beacon (internal ID)
           type: string
-        genomicHGVSId:
-          description: |
-            HGVSId descriptor at genomic level, referred to genome assembly 
-            defined in Variant Identification.
-          type: string
-          example: 'NC_000011.9:g.134086816T>C'
-        proteinHGVSIds:
-          description: |
-            List of HGVSId descriptor(s) at protein level (for protein-altering 
-            variants).
-          type: array
-          items:
-            type: string
-          example: 
-            - 'NP_009225.1:p.Glu1817Ter'
-            - 'LRG 199p1:p.Val25Gly (preferred)'
-        molecularConsequence:
-          description: |
-            List of Predicted effect at protein level for protein affecting variants
-          type: array
-          items:
-            type: string
-          example: 
-            - 'nonsense'
-            - 'missense'
-        geneIds:
-          description: |
-            List of HGNC ID(s) for gene(s) affected by the variant.
-          type: array
-          items:
-            type: string
-          example: 
-            - 'HGNC:8157'
-        transcriptHGVSId:
-          description: |
-            List of HGVSId descriptor(s) at transcript level.
-          type: array
-          items:
-            type: string
-          example: 
-            - 'NC 000023.10(NM004006.2):c.357+1G'
-        variantGeneRelationship:
-          description: |
-            Categorical value classifying the variant according to the broadness 
-            of the variant effect in terms of genes: intergenic, 5UTR, 3UTR, 
-            single-gene (exonic, intronic), in overlapping genes (exonic, 
-            intronic), spanning multiple genes, multiple genes
-          type: string
-          example: 'single gene'
-        clinicalRelevance:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClinicalRelevance'
         variantAlternativeId:
           description: |
             List of cross-referencing ID(s) (CURIE(s)) for the variant 
@@ -113,10 +60,58 @@ components:
             - 'rs80356868'
             - 'CA003602'
             - 'VCV000055583.1'
-        genomicFeatures:
+        genomicHGVSId:
+          description: |
+            HGVSId descriptor at genomic level, referred to genome assembly 
+            defined in Variant Identification.
+          type: string
+          example: 'NC_000011.9:g.134086816T>C'
+        transcriptHGVSId:
+          description: |
+            List of HGVSId descriptor(s) at transcript level.
           type: array
-          items: 
-            $ref: '#/components/schemas/ClinicalRelevance'
+          items:
+            type: string
+          example: 
+            - 'NC 000023.10(NM004006.2):c.357+1G'
+        proteinHGVSIds:
+          description: |
+            List of HGVSId descriptor(s) at protein level (for protein-altering 
+            variants).
+          type: array
+          items:
+            type: string
+          example: 
+            - 'NP_009225.1:p.Glu1817Ter'
+            - 'LRG 199p1:p.Val25Gly (preferred)'
+        genomicRegion:
+          description: |
+            List of Classification(s) of the variant according to the genomic 
+            region affected (all that apply). Value from Sequence Ontology (SO) (SO:TBD)
+          type: array
+          items:
+            type: string
+          example: 
+            - 'intergenic'
+            - '5UTR'
+            - '3UTR'
+            - 'coding'
+        GenomicFeature:
+          description: |
+            List of Genomic feature(s) affected by the variant.
+          type: object
+          properties:
+            class:
+              description: |
+                Class of genomic region (Ontology label) affected by the variant
+              type: array
+              items:
+                type: string
+              example: 
+                - 'gene'
+                - 'protein coding transcript'
+                - 'untranslated region'
+                - 'non-coding transcript'
         annotationToolVersion:
           description: |
             Tool used for annotation and prediction of variant effects 
@@ -130,6 +125,15 @@ components:
             type: string
           example:
             - 'STOP_GAINED'
+        molecularConsequence:
+          description: |
+            List of Predicted effect at protein level for protein affecting variants (Ontology label)
+          type: array
+          items:
+            type: string
+          example: 
+            - 'nonsense'
+            - 'missense'       
         aminoacidChange:
           description: |
             Lisf of change(s) at aminoacid level for protein affecting variants 
